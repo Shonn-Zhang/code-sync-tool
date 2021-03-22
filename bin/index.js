@@ -43,8 +43,8 @@ commander
 
         // 配置
         const tempModulesPath = './tempGitModules';
-        const targetModulesPath = './src/modules';
-        const source = 'http://gitlab.knx.com/x-galaxy/share-components.git';
+        const targetModulesPath = './src/modules'; // 复制目标路径
+        const source = 'http://gitlab.knx.com/x-galaxy/share-components.git'; // 仓库地址
 
         const hasModule = file.directoryExists('./src');
         if (!hasModule) {
