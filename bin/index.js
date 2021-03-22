@@ -2,10 +2,10 @@
 const chalk = require('chalk/source'); // 多颜色显示
 const clear = require('clear'); // 清空
 const figlet = require('figlet'); // ASCII 文本显示
-const commander = require('commander'); // 命令行接口
+const commander = require('commander/typings'); // 命令行接口
 
-const file = require('./lib/file.js');
-const pull = require('./lib/pull_modules');
+const file = require('../lib/file.js');
+const pull = require('../lib/pull_modules');
 
 
 // commander
