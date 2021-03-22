@@ -40,8 +40,12 @@ commander
             return
         }
         console.log(modulesName);
+
+        // 配置
         const tempModulesPath = './tempGitModules';
         const targetModulesPath = './src/modules';
+        const source = 'http://gitlab.knx.com/x-galaxy/share-components.git';
+
         const hasModule = file.directoryExists('./src');
         if (!hasModule) {
             console.log('目标路径父级目录src不存在' + targetModulesPath);
@@ -50,8 +54,8 @@ commander
 
         // 拉取远程代码
         file.create(tempModulesPath);
-        await pull.setupRepo(tempModulesPath, 'http://gitlab.knx.com/x-galaxy/hunter.git');
-        file.copy(tempModulesPath + '/src/modules/' + modulesName, targetModulesPath);
+        await pull.setupRepo(tempModulesPath, source);
+        file.copy(tempModulesPath + '/src/components/' + modulesName, targetModulesPath);
 
         file.remove(tempModulesPath);
 
