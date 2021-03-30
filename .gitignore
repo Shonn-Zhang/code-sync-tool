@@ -6,7 +6,6 @@ modules/
 newtest/
 im/
 vite/
-package-lock.json
 yarn.lock
 coverage/
 .idea/

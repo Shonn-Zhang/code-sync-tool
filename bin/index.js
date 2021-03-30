@@ -6,6 +6,7 @@ const commander = require('commander'); // 命令行接口
 
 const file = require('../lib/file.js');
 const pull = require('../lib/pull_modules');
+const addexmodules = require('../lib/add_extra_modules');
 
 
 // commander
@@ -55,9 +56,23 @@ commander
         // 拉取远程代码
         file.create(tempModulesPath);
         await pull.setupRepo(tempModulesPath, source);
+
+        // 判断是否有model
+        if(!file.directoryExists(tempModulesPath + '/src/components/' + modulesName)){
+            console.warn('远程modulesName不存在');
+            file.remove(tempModulesPath);
+            return
+        }
+
         file.copy(tempModulesPath + '/src/components/' + modulesName, targetModulesPath);
 
-        file.remove(tempModulesPath);
+
+        // 获取依赖包
+        await addexmodules.get(targetModulesPath + '/' + modulesName);
+
+
+
+        // file.remove(tempModulesPath);
 
         console.log(chalk.magenta(figlet.textSync(`add ok`, {
             hosrizontalLayout: 'full'
@@ -113,14 +128,31 @@ commander
             // exports[0] === 'p';
             // console.log(exports);
             // console.log(imports);
-            console.log(source.substring(imports[0].s, imports[0].e));
-            for (let i = 0; i < imports; i++) {
+            // console.log(source.substring(imports[0].s, imports[0].e));
+
+            const modelName = [];
+            for (let i = 0; i < imports.length; i++) {
                 let item = imports[i];
                 let query = source.substring(item.s, item.e);
                 if (query.indexOf('model') > -1) {
-                    console.log(query);
+                    // console.log('>>',query);
+                    modelName.push(query)
                 }
             }
+            console.log(modelName);
+
+            const exec = require('child_process').exec;
+            const cmdStr = 'npm -v';
+            exec(cmdStr, (err, stdout, stderr) => {
+                if (err) {
+                    console.log(err);
+                    console.warn(new Date(), '命令执行失败');
+                } else {
+                    console.log(stdout);
+                    console.warn(new Date(), '命令执行成功');
+                }
+            });
+
         })();
 
 
