@@ -59,7 +59,7 @@ commander
 
         // 判断是否有model
         if(!file.directoryExists(tempModulesPath + '/src/components/' + modulesName)){
-            console.warn('远程modulesName不存在');
+            console.warn(new Date(), '远程modulesName不存在');
             file.remove(tempModulesPath);
             return
         }
@@ -72,11 +72,12 @@ commander
 
 
 
-        // file.remove(tempModulesPath);
+        file.remove(tempModulesPath);
 
-        console.log(chalk.magenta(figlet.textSync(`add ok`, {
+        console.log(chalk.magenta(figlet.textSync(`>>>`, {
             hosrizontalLayout: 'full'
         })));
+
         // const f = file.getCurrentDirectoryBase();
         // const hasModule = file.directoryExists('node_modules/'+ modulesName);
         // console.log(f);
